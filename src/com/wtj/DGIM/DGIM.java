@@ -1,5 +1,6 @@
 package com.wtj.DGIM;
 
+import java.util.Date;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,17 +8,21 @@ import java.util.LinkedList;
 public class DGIM {
 	//包含所有桶的一个queue
 	private static Deque<Bucket> queue = new LinkedList<Bucket>();
-	public static int time = 0;
-	public static final int SIZE = 10;
+	private int size = 10*1000;
+
+	public DGIM(int size) {
+		this.size = size*1000;
+	}
 
 	//查询k时间内的总个数
-	public static int getCount(int k){
+	public int getCount(){
 		int ans = 0;
 		int addValue=0;
 		Iterator<Bucket> iter = queue.iterator();
+		long time = new Date().getTime();
 		while(iter.hasNext()){
 			Bucket bucket = iter.next();
-			if((bucket.getTime()+SIZE)>time){
+			if((bucket.getTime()+size)>time){
 				addValue = bucket.getSize();
 				ans+=addValue;
 			}
@@ -29,11 +34,11 @@ public class DGIM {
 	}
 	
 	//加入一个元素
-	public static void add(){
-		time++;
+	public void add(){
+		long time = new Date().getTime();
 		Bucket bucket = new Bucket(time, 1);
 		queue.addFirst(bucket);
-		if((time-queue.getLast().getTime())>SIZE){
+		if((time-queue.getLast().getTime())>size){
 			queue.removeLast();
 		}
 		
@@ -100,15 +105,22 @@ public class DGIM {
 
 	
 	
-	public static void main(String[] args) {
-		for(int i =0;i<30;i++)
-			add();
+	/**
+	 * @param args
+	 * @throws InterruptedException
+	 */
+	public static void main(String[] args) throws InterruptedException {
+		DGIM dgim = new DGIM(2);
+		for(int i =0;i<30;i++){
+			dgim.add();
+			Thread.sleep(100);
+		}
 		
 		Iterator<Bucket> iter = queue.iterator();
 		while(iter.hasNext())
 			System.out.println(iter.next());
 		
-		System.out.println(getCount(10));
+		System.out.println(dgim.getCount());
 	}
 
 }

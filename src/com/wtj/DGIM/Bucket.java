@@ -2,15 +2,15 @@ package com.wtj.DGIM;
 
 public class Bucket {
 	
-	private int time;
+	private long time;
 	private int size;
 	
-	public Bucket(int time, int size) {
-		this.time = time;
+	public Bucket(long time2, int size) {
+		this.time = time2;
 		this.size = size;
 	}
 	
-	public int getTime() {
+	public long getTime() {
 		return time;
 	}
 	public void setTime(int time) {
