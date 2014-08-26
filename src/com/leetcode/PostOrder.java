@@ -3,13 +3,6 @@ package com.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
-
 public class PostOrder {
 
 	public void postHelper(TreeNode root, List<Integer> list){
@@ -37,6 +30,20 @@ public class PostOrder {
     public List<Integer> preorderTraversal(TreeNode root) {
     	List<Integer> list = new ArrayList<Integer>();
     	preHelper(root, list);
+		return list;
+    }
+    
+	public void inHelper(TreeNode root, List<Integer> list){
+		if(root==null) return;
+
+		inHelper(root.left, list);
+		list.add(root.val);
+		inHelper(root.right, list);
+	}
+    
+    public List<Integer> inorderTraversal(TreeNode root) {
+    	List<Integer> list = new ArrayList<Integer>();
+    	inHelper(root, list);
 		return list;
     }
 	
