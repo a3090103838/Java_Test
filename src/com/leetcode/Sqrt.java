@@ -1,34 +1,32 @@
 package com.leetcode;
 
 public class Sqrt {
-
-	public static double abs(double n){
-		return n>0?n:-n;
-	}
 	
-	public static double sqrt(int x){
-		if(x<=0) return 0;
-		double left = 1;
-		double right = x/2;
-		double mid = (left + right)/2;
+	public int sqrt(int x){
+		if(x<2) return x;
+		int left = 1;
+		int right = x/2;
+		int mid = (left + right)/2;
 		
-		while(abs(mid*mid-x) > 0.000001){
-			System.out.println(mid);
-			if(mid*mid > x){
-				right = mid;
+		while(left<=right){
+			if(x/mid<mid){
+				right = mid-1;
 			}
-			else{
-				left = mid;
+			else if(x/mid>mid){
+				left = mid+1;
 			}
+			else
+				return mid;
 			
 			mid = (left + right)/2;
 		}
 		
-		return mid;
+		return (int) mid;
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(sqrt(35));
+		Sqrt s = new Sqrt();
+		System.out.println(s.sqrt(1579205274));
 	}
 
 }

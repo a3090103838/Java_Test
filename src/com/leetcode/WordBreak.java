@@ -7,8 +7,8 @@ public class WordBreak {
 
 	public static Set<String> dict = new HashSet<String>();
 	
-	public static boolean gao(String a){
-		String tmp = 'a'+ a;
+	public boolean wordBreak(String a, Set<String> dict){
+		String tmp = ' '+ a;
 		boolean[] f = new boolean[a.length()+1];
 		f[0] = true;
 		
@@ -34,7 +34,8 @@ public class WordBreak {
 		String a = "leetcode";
 		dict.add("leet");
 		dict.add("code");
-		System.out.println("result is :" + gao(a));
+		WordBreak wb = new WordBreak();
+		System.out.println("result is :" + wb.wordBreak(a, dict));
 	}
 
 }

@@ -1,6 +1,23 @@
 package com.leetcode;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ReverseString {
+	
+	public String reverseWords(String s) {
+		if(s.equals("")) return s;
+		List<String> list = Arrays.asList(s.split(" "));
+		StringBuffer sb = new StringBuffer();
+		for(String item: list){
+			if(item!=" "&&item!=""&&item.length()>0)
+				sb.append(reverseWord(item)+" ");
+		}
+		
+		if(sb.length()==0)
+			return "";
+		return reverseWord(sb.toString()).substring(1);
+    }
 	
 	public static void swap(char[] a, int i, int j){
 		char tmp = a[i];
@@ -8,37 +25,22 @@ public class ReverseString {
 		a[j] = tmp;
 	}
 	
-    public static void reverseWords(char[] a, int start, int end) {
+    public  String reverseWord(String s) {
+    	char[] a = s.toCharArray();
+    	int start = 0;
+    	int end = a.length-1;
     	while(start<end){
     		swap(a, start++, end--);
     	}
-    }
-    
-    public String reverse(String s){
-    	String tmp = s+' ';
-    	char[] str = tmp.toCharArray();
-    	reverseWords(str, 0, s.length()-1);
-    	int i = 0;
-    	while(str[i]==' '){i++;}
     	
-    	int start = i;
-    	int end = i;
-    	
-    	for(;;){
-    		while(str[end]!=' ') end++;
-    		reverseWords(str, start, end-1);
-    		while(str[end]==' ') {
-    			if(end==str.length-1)
-    				return new String(str);
-    			end++;
-    		}
-    		start = end;
-    	}
+    	return new String(a);
     }
+  
    
     public static void main(String[] args){
     	ReverseString test = new ReverseString();
-    	System.out.println(test.reverse("abc bcd def"));
+    	System.out.println(test.reverseWords("abc bcd def"));
+    	System.out.println(test.reverseWords(" 1"));
     }
 }
 
