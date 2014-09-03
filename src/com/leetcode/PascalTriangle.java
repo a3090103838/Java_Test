@@ -1,7 +1,6 @@
 package com.leetcode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PascalTriangle {
@@ -36,10 +35,28 @@ public class PascalTriangle {
     public List<List<Integer>> generate(int numRows) {
         return parse(helper(numRows), numRows);
     }
-	
+    public List<Integer> getRow(int rowIndex) {
+    	List<Integer> pre = new ArrayList<Integer>();
+    	List<Integer> cur;
+    	pre.add(1);
+    	
+    	for(int j=1;j<=rowIndex;j++){
+    		cur = new ArrayList<Integer>(pre.size()+1);
+    		for(int i=0;i<=pre.size();i++){
+    			if(i==0||i==pre.size())
+    				cur.add(1);
+    			else
+    				cur.add(pre.get(i) + pre.get(i-1));
+    		}
+    		
+    		pre = cur;
+    	}
+		return pre;        
+    }
+    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		PascalTriangle pt = new PascalTriangle();
+		System.out.println(pt.getRow(3));
 	}
 
 }

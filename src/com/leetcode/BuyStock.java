@@ -17,6 +17,20 @@ public class BuyStock {
     	}
 		return max;        
     }
+    
+    public int maxProfit1(int[] prices) {
+    	int[] diff = new int[prices.length];
+    	
+    	for(int i=1; i<prices.length;i++)
+    		diff[i] = prices[i]- prices[i-1];
+    	
+    	int sum = 0;
+    	
+    	for(int i=1; i<diff.length;i++){
+    		if(diff[i]>0) sum+=diff[i];
+    	}
+		return sum;        
+    }
 	
 	public static void main(String[] args) {
 

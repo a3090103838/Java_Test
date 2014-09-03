@@ -1,6 +1,5 @@
 package com.leetcode;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,7 +11,13 @@ class TreeLinkNode {
 
 public class SblinNode {
 
+	public void putChildIn( Queue<TreeLinkNode> q, TreeLinkNode root){
+		if(root.left!=null) q.offer(root.left);
+		if(root.right!=null) q.offer(root.right);
+	}
+	
     public void connect(TreeLinkNode root) {
+    	if(root==null) return;
         Queue<TreeLinkNode> q1 = new LinkedList<TreeLinkNode>();
         Queue<TreeLinkNode> q2 = new LinkedList<TreeLinkNode>();
         
@@ -21,11 +26,18 @@ public class SblinNode {
         Queue<TreeLinkNode> other = q2;
         
         while(!cur.isEmpty()){
-        	Iterator<TreeLinkNode> iter = cur.iterator();
-        	while(iter.hasNext()){
-        		TreeLinkNode current = iter.next();
-        		current.next = iter.next();
+        	TreeLinkNode head = cur.poll();
+        	putChildIn(other, head);
+        	
+        	while(!cur.isEmpty()){
+        		head.next = cur.poll();
+        		putChildIn(other, head.next);
+        		head = head.next;
         	}
+        	
+        	Queue<TreeLinkNode> tmp = cur;
+        	cur = other;
+        	other = tmp;
         }
     }
 	
