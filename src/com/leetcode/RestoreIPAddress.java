@@ -4,6 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RestoreIPAddress {
+	
+	public boolean isValidateNum(String s){
+		if(s.length()<=1) return true;
+		int i=0;
+		while(i<s.length() && s.charAt(i)=='0') i++;
+		if(i>0) return false;
+		return true;
+	}
+	
 	public void helper(String s, List<String> preRes, int leftNum, List<String> res){
 		if(leftNum==0) {
 			res.add(makeIp(preRes));
@@ -16,10 +25,10 @@ public class RestoreIPAddress {
 				String strNum = s.substring(0, i);
 				String strLeft = s.substring(i);
 				int num = Integer.valueOf(strNum);
-				if(num>=0 && num<=255){
+				if(num>=0 && num<=255 && isValidateNum(strNum)){
 					preRes.add(strNum);
 					helper(strLeft, preRes, leftNum-1, res);
-					preRes.remove(strNum);
+					preRes.remove(preRes.size()-1);
 				}
 			}
 		}
@@ -49,7 +58,7 @@ public class RestoreIPAddress {
 	
 	public static void main(String[] args) {
 		RestoreIPAddress ri = new RestoreIPAddress();
-		System.out.println(ri.restoreIpAddresses("25525511135"));
+		System.out.println(ri.restoreIpAddresses("19216811"));
 	}
 
 }
