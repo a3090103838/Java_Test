@@ -9,7 +9,6 @@ public class TreeToList {
 	}
 	
     public void flatten(TreeNode root) {
-        TreeNode head = new TreeNode(0);
         
         
     }
