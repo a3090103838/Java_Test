@@ -12,23 +12,35 @@ public class SymmetricTree {
 		
 		cur.add(root);
 		while(!cur.isEmpty()){
+		    if(isAllNull(cur)) return true;
 			if(!isSymmetric(cur)) return false;
 			for(TreeNode item: cur){
-				if(item.left!=null) other.add(item.left);
-				if(item.right!=null) other.add(item.right);
+				if(item.left!=null) 
+				    other.add(item.left);
+				else
+				    other.add(new TreeNode(-1));
+                if(item.right!=null) 
+                    other.add(item.right);
+                else
+                    other.add(new TreeNode(-1));
 			}
 			cur.clear();
 			
 			List<TreeNode> tmp = cur;
 			cur = other;
 			other = tmp;
-		}
-		
+		}		
 		return true;
     }
-    
-	
-	private boolean isSymmetric(List<TreeNode> cur) {
+    	
+	private boolean isAllNull(List<TreeNode> cur) {
+        for(TreeNode tn: cur)
+            if(tn.val!=-1)
+                return false;
+        return true;
+    }
+
+    private boolean isSymmetric(List<TreeNode> cur) {
 		int start = 0;
 		int end = cur.size()-1;
 		while(start < end){
@@ -37,10 +49,15 @@ public class SymmetricTree {
 		}
 		return true;
 	}
-
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	    SymmetricTree st = new SymmetricTree();
+	    TreeNode root = new TreeNode(1);
+	    root.left = new TreeNode(1);
+	    root.right = new TreeNode(1);
+	    root.left.left = new TreeNode(1);
+	    root.right.right = new TreeNode(1);
+	    System.out.println(st.isSymmetric(root));
 	}
 
 }

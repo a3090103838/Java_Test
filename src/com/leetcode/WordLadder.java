@@ -57,7 +57,6 @@ public class WordLadder {
 		return res.getRes();
     }
     
-	
 	public static void main(String[] args) {
 		WordLadder wl = new WordLadder();
 		Set<String> dict = new HashSet<String>();
